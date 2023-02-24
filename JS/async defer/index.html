@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <script type="text/javascript" src="./index.js" ></script> -->
+  <!-- <script async type="text/javascript" src="./index.js" ></script> -->
+  <script defer type="text/javascript" src="./index.js" ></script>
+
+
+  <!-- 
+    引入外部链接时
+    defer 和 async 都能实现延迟加载JS
+    
+    async 在html解析过程中会下载JS然后执行JS，不看顺序，谁先加载完谁先执行
+
+    defer 在html解析过程中会下载JS 但HTML解析完后才会执行JS，且按循序执行
+    <script defer type="text/javascript" src="./a.js" ></script>
+    <script defer type="text/javascript" src="./b.js" ></script>
+    <script defer type="text/javascript" src="./c.js" ></script>
+    执行顺序是 a b c
+   -->
+
+</head>
+<body>
+  <div id="box">
+    111
+  </div>
+
+</body>
+</html>
