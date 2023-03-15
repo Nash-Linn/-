@@ -16,3 +16,21 @@
 //   .then((res) => {
 //     console.log("1");
 //   });
+
+function* asyncFn() {
+  yield setTimeout(() => {
+    console.log("1秒延迟");
+  }, 1000);
+  yield setTimeout(() => {
+    console.log("2秒延迟");
+  }, 2000);
+  yield setTimeout(() => {
+    console.log("3秒延迟");
+  }, 3000);
+}
+
+let fn = asyncFn();
+
+fn.next().value;
+fn.next().value;
+fn.next().value;
