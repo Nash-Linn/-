@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <ul>
+      <!-- 生成 1-100 的li -->
+    </ul>
+  </div>
+
+  <script>
+    var ul = document.querySelector('ul');
+    var str = '';
+    for (var i = 1; i <= 100; i++) {
+      str += '<li>' + i + '</li>';
+    }
+    ul.innerHTML = str;
+
+
+
+// 节流Throttle
+//     1）节流Throttle情景
+//       ①图片懒加载
+//       ②ajax数据请求加载
+
+//     2）节流原理
+//        如果持续触发事件，每隔一段时间只执行一次函数。
+
+
+var throttle = function (func, delay) {
+  var prev = Date.now()
+  return function () {
+      var context = this;
+      var args = arguments;
+      var now = Date.now();
+      if (now - prev >= delay) {
+          func.apply(context, args);
+          prev = Date.now();
+      }
+  }
+}
+
+function handle() {
+    console.log(Math.random());
+}
+window.addEventListener('scroll', throttle(handle, 1000));
+
+
+  </script>
+</body>
+</html>

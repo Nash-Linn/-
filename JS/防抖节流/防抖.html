@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <ul>
+      <!-- 生成 1-100 的li -->
+    </ul>
+  </div>
+  <script>
+    var ul = document.querySelector('ul');
+    var str = '';
+    for (var i = 1; i <= 100; i++) {
+      str += '<li>' + i + '</li>';
+    }
+    ul.innerHTML = str;
+
+
+
+//  防抖Debounce
+// （1）防抖Debounce情景
+//      ①有些场景事件触发的频率过高（mousemove onkeydown onkeyup onscroll）
+
+//      ②回调函数执行的频率过高也会有卡顿现象。 可以一段时间过后进行触发去除无用操作
+
+// （2）防抖原理
+// 一定在事件触发 n 秒后才执行，如果在一个事件触发的 n 秒内又触发了这个事件，以新的事件的时间为准，n 秒后才执行，等触发事件 n 秒内不再触发事件才执行。
+
+    //简单的防抖函数
+// function debounce(func, wait) {
+//     var timeout;
+//     return function () {
+//         var context = this;
+//         var args = arguments;
+//         clearTimeout(timeout);
+//         timeout = setTimeout(function () {
+//             func.apply(context, args)
+//         }, wait);
+//     }
+// }
+
+
+// 立即触发问题
+// 首次触发执行，再次触发以后开始执行防抖函数
+// 使用的时候不用重复执行这个函数，本身返回的函数才具有防抖功能
+// function debounce(func, wait, immediate) {
+//   var timeout;
+//   return function () {
+//     var context = this;
+//     var args = arguments;
+    
+//     if(timeout) clearTimeout(timeout);
+//     // 是否在某一批事件中首次执行
+//     if (immediate) {
+//         var callNow = !timeout;
+//         timeout = setTimeout(function() {
+//             timeout = null;
+//             func.apply(context, args)
+//             immediate = true;
+//         }, wait);
+//         if (callNow) {
+//             func.apply(context, args)
+//         }
+//         immediate = false;
+//     } else {
+//         timeout = setTimeout(function() {
+//             func.apply(context, args);
+//             immediate = true;
+//         }, wait);
+//     }
+//   }
+// }
+
+    //返回值问题
+    // function debounce(func, wait, immediate) {
+    // var timeout, result;
+    //   return function () {
+    //     var context = this, args = arguments;
+    //     if (timeout)  clearTimeout(timeout);
+    //     if (immediate) {
+    //         var callNow = !timeout;
+    //         timeout = setTimeout(function() {
+    //             result = func.apply(context, args)
+    //         }, wait);
+    //         if (callNow) result = func.apply(context, args);
+    //     } else {
+    //         timeout = setTimeout(function() {
+    //             result = func.apply(context, args)
+    //         }, wait);
+    //     }
+    //     return result;
+    //   }
+    // }
+
+    //取消防抖，添加cancel方法
+  //   function debounce(func, wait, immediate) {
+  //   var timeout, result;
+  //   function debounced () {
+  //       var context = this, args = arguments;
+  //       if (timeout)  clearTimeout(timeout);
+  //       if (immediate) {
+  //           var callNow = !timeout;
+  //           timeout = setTimeout(function() {
+  //               result = func.apply(context, args)
+  //           }, wait);
+  //           if (callNow) result = func.apply(context, args);
+  //       } else {
+  //           timeout = setTimeout(function() {
+  //               result = func.apply(context, args)
+  //           }, wait);
+  //       }
+  //       return result;
+  //   }
+  //   debounced.cancel = function(){
+  //       clearTimeout(timeout);
+  //       timeout = null;
+  //   }
+  //   return debounced;
+  // }
+
+
+
+    //绑定在scrolle事件上的handler
+    function handlerFunc() {
+        console.log('Success');
+    }
+    //没采用防抖动
+    window.addEventListener('scroll', handlerFunc);
+
+    //采用防抖动
+    function handlerFunc1() {
+        console.log('Success1');
+        return 'return success'
+    }
+    window.addEventListener('scroll',debounce(handlerFunc1, 1000,true));
+
+    let cancelBtn = document.getElementById('cancel');
+    cancelBtn.addEventListener('click',function(){
+      debounce(handlerFunc1, 1000,true).cancel()
+    })
+
+  </script>
+</body>
+</html>
